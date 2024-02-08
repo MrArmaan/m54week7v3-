@@ -18,10 +18,9 @@ bookRouter.get("/books/getAllBooks", getAllBooks);
 
 bookRouter.put("/books/updateAuthor", updateAuthor);
 
-bookRouter.put("/books/:id", findBookByTitle );
+bookRouter.put("/books/findBookByTitle", findBookByTitle );
 
-
-app.delete("/books/:id", deleteBook )
+bookRouter.delete("/books/deleteBook", deleteBook );
 
 module.exports = bookRouter;
 

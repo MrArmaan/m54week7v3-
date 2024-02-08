@@ -13,6 +13,8 @@ app.use(express.json());
 
 connection();
 
+app.use(bookRouter);
+
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
