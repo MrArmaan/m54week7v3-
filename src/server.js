@@ -13,37 +13,6 @@ app.use(express.json());
 
 connection();
 
-app.get("/books/getAllBooks", async (request, response) => {
-    try {
-        const books = await Book.find({});
-        response.json({ message: "success all the books", books: books });
-    } catch (error) {
-        response.status(500).json({ message: error.message });
-    }
-});
-
-app.put("/books/updateAuthor", async (request, response) => {
-    try {
-      const title = request.body.title;
-      const updatedAuthor = request.body.author;
-
-      const updatedBook = await Book.findOneAndUpdate(
-        { title: title },
-        { $set: { author: updatedAuthor } },
-        { new: true }
-      );
-  
-      if (!updatedBook) {
-        return response.status(404).send({ message: "Error: Book not found" });
-      }
-  
-      response.send({ message: "Success: Author updated", book: updatedBook });
-    } catch (error) {
-      response.status(500).send({ message: "Error: Unable to update author" });
-    }
-  });
-
-
 app.put("/books/:id", async (request, response) => {
     try {
         const updatedBook = await Book.findByIdAndUpdate(request.params.id, request.body, { new: true });

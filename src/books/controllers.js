@@ -31,10 +31,44 @@ const getAllBooks = async (request, response) => {
     }
 }
 
+const updateAuthor = async (request, response) => {
+    try {
+      const title = request.body.title;
+      const updatedAuthor = request.body.author;
+
+      const updatedBook = await Book.findOneAndUpdate(
+        { title: title },
+        { $set: { author: updatedAuthor } },
+        { new: true }
+      );
+  
+      if (!updatedBook) {
+        return response.status(404).send({ message: "Error: Book not found" });
+      }
+  
+      response.send({ message: "Success: Author updated", book: updatedBook });
+    } catch (error) {
+      response.status(500).send({ message: "Error: Unable to update author" });
+    }
+  }
+
+
+  const findBookByTitle = async (request, response) => {
+    try {
+        const updatedBook = await Book.findByIdAndUpdate(request.params.id, request.body, { new: true });
+        if (!updatedBook) {
+            return response.status(404).json({ message: 'Book not found' });
+        }
+        response.json(updatedBook);
+    } catch (error) {
+        response.status(400).json({ message: error.message });
+    }
+}
+
 module.exports = {
     addBook: addBook,
     addMultipleBooks: addMultipleBooks,
     getAllBooks: getAllBooks,
-    
-
+    updateAuthor: updateAuthor,
+    findBookByTitle: findBookByTitle,
 }

@@ -6,12 +6,20 @@ const Book = require ("./model");
 const { addBook } = require("./controllers")
 const { addMultipleBooks } = require("./controllers")
 const { getAllBooks } = require("./controllers")
+const { updateAuthor } = require("./controllers")
+const { findBookByTitle } = require("./controllers")
 
 bookRouter.post("/books/addBook", addBook);
 
 bookRouter.post("/books/addMultipleBooks", addMultipleBooks);
 
 bookRouter.get("/books/getAllBooks", getAllBooks);
+
+bookRouter.put("/books/updateAuthor", updateAuthor);
+
+bookRouter.put("/books/:id", findBookByTitle );
+
+
 
 module.exports = bookRouter;
 
