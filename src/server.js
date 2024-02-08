@@ -7,14 +7,7 @@ const PORT = process.env.PORT || 5001;
 
 app.use(express.json());
 
-const connection = async () => {
-    try {
-        await mongoose.connect(process.env.MONGO_URI);
-        console.log("DB connection is working");
-    } catch (error) {
-        console.error("DB connection error:", error);
-    }
-};
+
 
 connection();
 
