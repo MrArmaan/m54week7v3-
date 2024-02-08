@@ -4,6 +4,8 @@ const mongoose = require("mongoose")
 
 const connection = require("./db/connection");
 
+const bookRouter = require("./books/routes");
+
 const app = express();
 const PORT = process.env.PORT || 5001;
 
