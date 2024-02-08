@@ -11,29 +11,6 @@ app.use(express.json());
 
 connection();
 
-app.post("/books/addBook", async (request, response) => {
-    try {
-        const book = await Book.create({
-            title: request.body.title,
-            author: request.body.author,
-            genre: request.body.genre,
-        });
-        response.status(201).json({ message: "success book created", book: book });
-    } catch (error) {
-        response.status(400).json({ message: error.message });
-    }
-});
-
-app.post("/books/addMultipleBooks", async (request, response) => {
-    try {
-        const book = await Book.insertMany(request.body);
-        response.status(201).json({ message: "success book created", book: book });
-    } catch (error) {
-        response.status(400).json({ message: error.message });
-    }
-});
-
-
 app.get("/books/getAllBooks", async (request, response) => {
     try {
         const books = await Book.find({});
