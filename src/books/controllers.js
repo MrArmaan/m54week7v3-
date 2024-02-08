@@ -65,10 +65,23 @@ const updateAuthor = async (request, response) => {
     }
 }
 
+const deleteBook = async (request, response) => {
+    try {
+        const deletedBook = await Book.findOneAndDelete({title:request.body.title});
+        if (!deletedBook) {
+            return response.status(404).json({ message: 'Book not found' });
+        }
+        response.json({ message: 'Book deleted' });
+    } catch (error) {
+        response.status(500).json({ message: error.message });
+    }
+};
+
 module.exports = {
     addBook: addBook,
     addMultipleBooks: addMultipleBooks,
     getAllBooks: getAllBooks,
     updateAuthor: updateAuthor,
     findBookByTitle: findBookByTitle,
+    deleteBook: deleteBook,
 }
