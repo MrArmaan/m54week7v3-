@@ -77,6 +77,36 @@ const deleteBook = async (request, response) => {
     }
 };
 
+const updateBookByTitle = async (request, response) => {
+    try {
+      const { title, fieldToUpdate, updatedValue } = request.body;
+      const allowedFields = ["title", "author", "genre"];
+  
+      if (!allowedFields.includes(fieldToUpdate)) {
+        return response
+          .status(400)
+          .json({ message: "Invalid field to update" });
+      }
+  
+      const updatedBook = await Book.findOneAndUpdate(
+        { title: title },
+        { $set: { [fieldToUpdate]: updatedValue } }, 
+        { new: true }
+      );
+  
+      if (!updatedBook) {
+        return response.status(404).json({ message: "Book not found" });
+      }
+  
+      response.json({
+        message: "Success: Book updated",
+        book: updatedBook
+      });
+    } catch (error) {
+      response.status(500).json({ message: error.message });
+    }
+  };
+
 module.exports = {
     addBook: addBook,
     addMultipleBooks: addMultipleBooks,
@@ -84,4 +114,5 @@ module.exports = {
     updateAuthor: updateAuthor,
     findBookByTitle: findBookByTitle,
     deleteBook: deleteBook,
+    updateBookByTitle: updateBookByTitle,
 }
