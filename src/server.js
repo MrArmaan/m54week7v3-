@@ -1,31 +1,15 @@
 require("dotenv").config();
 const express = require("express");
-const mongoose = require("mongoose");
+const mongoose = require("mongoose")
+
+const connection = require("./db/connection");
 
 const app = express();
 const PORT = process.env.PORT || 5001;
 
 app.use(express.json());
 
-
-
 connection();
-
-const bookSchema = new mongoose.Schema({
-    title: {
-        type: String,
-        required: true,
-        unique: true,
-    },
-    author: {
-        type: String,
-    },
-    genre: {
-        type: String,
-    },
-});
-
-const Book = mongoose.model("Book", bookSchema);
 
 app.post("/books/addBook", async (request, response) => {
     try {
